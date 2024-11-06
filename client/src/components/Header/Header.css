@@ -1,0 +1,35 @@
+.Header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 80px;
+    background-image: linear-gradient(to right, #fdf5ed , #eef2f3);
+    position: fixed;
+    z-index: 89;
+    padding: 0px 100px;
+}
+.header-container{
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+}
+.header-item{
+    display: flex;
+    align-items: center;
+}
+.header-item:first-child{
+    cursor: pointer;
+}
+.header-item:first-child{
+    font-weight: 550;
+}
+@media only screen and (max-width: 600px) {
+    .header-container{
+        padding: 0px 20px ;
+        height: 65px;
+    }
+    .Header{
+        height: 60px;
+        padding: 0px;
+    }
+}

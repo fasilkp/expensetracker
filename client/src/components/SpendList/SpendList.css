@@ -1,0 +1,49 @@
+.SpendList{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 75px;
+}
+.spend-list-container{
+    width: 650px;
+
+}
+.list-header{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.199);
+    position: sticky;
+    top: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to right, #faf4ed , #eef2f3);
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 30px;
+    
+}
+.list-month-input{
+    width: 100px;
+    height: 45px;
+    padding: 5px;
+    border: none;
+    outline: none;
+    border-radius: 10px;    
+    margin-left: 20px;
+    background-color: white;
+    color: var(--secondColor);
+    font-weight: 500;
+}
+@media only screen and (max-width: 600px) {
+    .spend-list-container{
+        padding: 0px 15px;
+    }
+    .SpendList{
+        padding-top: 0px;
+    }
+    .list-header{
+        top:50px;
+    }
+}

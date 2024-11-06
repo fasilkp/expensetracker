@@ -1,0 +1,16 @@
+/server/node_modules
+/client/node_modules
+
+/server/.env
+/client/.env
+
+
+/server/dist
+/client/build
+
+
+/server/.git
+/client/.git
+
+/server/.gitignore
+/client/.gitignore

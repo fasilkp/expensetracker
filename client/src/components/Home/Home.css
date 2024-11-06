@@ -1,0 +1,137 @@
+.Home{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+    padding-top: 70px;
+}
+.home-container{
+    width: 650px;
+    padding-bottom: 80px;
+}
+.home-head{
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+    padding: 40px 0px;
+    padding-bottom: 30px;
+}
+.home-banner{
+    width: 100%;
+    background-image: linear-gradient(to right, #0e1c26 , #2a454b);
+    border-radius: 30px;
+    padding: 30px;
+    padding-left: 25px;
+    color: white;
+    padding-top: 40px;
+}
+.home-banner div{
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+.home-banner label{
+    color: rgba(255, 255, 255, 0.714);
+    font-size: .85rem;
+    font-weight: 300;
+}
+.home-amount{
+    display: flex;
+    align-items: center;
+}
+.home-amount.second h1{
+    font-size: 1.5rem;
+}
+.home-amount h1{
+    font-weight: 600;
+}
+.home-amount button{
+    width: 60px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    margin-left: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
+.home-recent{
+
+}
+.recent-head{
+    margin: 20px 0px;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 0.70);
+}
+.home-recent-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    height: 80px;
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: .2s;
+}
+.recent-list-amount, .recent-list-desc, .recent-list-profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.recent-list-profile{
+    width: 15%;
+    color: rgb(238, 107, 0);
+}
+
+.recent-list-profile{
+    width: 55px;
+    height: 60px;
+    background-color: #eeebf7;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+.recent-list-desc{
+    width: 70%;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 5px 0px;
+    padding-left: 10px;
+    flex-direction: column;
+}
+.recent-list-amount{
+    width: 20%;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px 0px;
+
+    
+}
+.recent-list-amount b{
+    font-size: 1rem;
+    display: flex;
+    align-items: flex-end;
+}
+.home-recent-item div label{
+    color: grey;
+    font-size: .8rem;
+}
+.home-recent-item:hover{
+    box-shadow: 0px 0px 20px -10px grey;
+}
+@media only screen and (max-width: 600px) {
+    .home-container{
+        width: 92%;
+    }
+    .Home{
+        padding-top: 50px;
+    }
+    .home-amount.first h1{
+        font-size: 1.75rem;
+    }
+    .home-banner{
+        padding: 30px 20px 20px 20px;
+    }
+  }
