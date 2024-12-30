@@ -36,6 +36,13 @@ export class UserController {
   ) {
     return this.userService.logoutUser(res);
   }
+
+  @Get("/auth/demo")
+  demoLogin(
+    @Res({ passthrough: true }) res: Response
+  ) {
+    return this.userService.demoLogin(res);
+  }
   
   @Patch('/editDefaultMonthLimit/:amount')
   @UseGuards(AuthGuard)

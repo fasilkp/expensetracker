@@ -12,10 +12,10 @@ import { JwtService } from '@nestjs/jwt';
 export class UserService {
 
   constructor(
-    @InjectModel(User.name) 
+    @InjectModel(User.name)
     private userModel: Model<User>,
     private jwtService: JwtService
-  
+
   ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -34,7 +34,7 @@ export class UserService {
     }
   }
 
-  async getUser(id: string, res:Response): Promise<User> {
+  async getUser(id: string, res: Response): Promise<User> {
     console.log(id)
     // res.cookie('token',"")
     // res.cookie('tokens',"")
@@ -46,7 +46,8 @@ export class UserService {
     try {
       const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
       const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-      const REDIRECT_URI = "http://localhost:3000/user/auth/google/callback"
+      const REDIRECT_URI = process.env.CLIENT_URL+"/user/auth/google/callback";
+      console.log("redirecting to", REDIRECT_URI);
       const tokenResponse = await axios.post('https://oauth2.googleapis.com/token', {
         code,
         client_id: CLIENT_ID,
@@ -68,9 +69,14 @@ export class UserService {
 
       await this.userModel.findOneAndUpdate({ email: user.email }, { $set: { image: user.image, name: user.name } }, { upsert: true });
       let newUser = await this.userModel.findOne({ email: user.email });
-      const token = await this.jwtService.signAsync({ id: newUser._id, name:newUser.name }, {expiresIn: '30d'});
+      const token = await this.jwtService.signAsync({ id: newUser._id, name: newUser.name }, { expiresIn: '30d' });
       console.log("newToken", token)
-      res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24 });
+      res.cookie('token', token, {
+        maxAge: 1000 * 60 * 60 * 24, 
+        httpOnly: true,
+        secure: true,
+        sameSite:"none"
+      });
       return { message: "Login Successful" }
 
     } catch (err) {
@@ -108,8 +114,24 @@ export class UserService {
   }
 
   async logoutUser(@Res() res: Response) {
-    res.cookie('token', '', { maxAge: 0 });
+    res.cookie('token', '', { 
+      maxAge: 0, 
+      httpOnly: true,
+      secure: true,
+      sameSite:"none"
+     });
     return { message: 'Logout Successful' };
+  }
+
+  async demoLogin(@Res() res: Response) {
+    const token = await this.jwtService.signAsync({ id: "6772c8d37cde8809451781bd", name: "Demo User" }, { expiresIn: '30d' });
+    res.cookie('token', token, {
+      maxAge: 1000 * 60 * 60 * 24, 
+      httpOnly: true,
+      secure: true,
+      sameSite:"none"
+    });
+    return { message: 'Demo Login Successfull' };
   }
 
 }
