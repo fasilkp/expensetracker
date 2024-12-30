@@ -6,6 +6,7 @@ import AuthContext from "../../context/AuthContext";
 import ListComp from "../ListCompnent/ListCom";
 import "./SpendList.css";
 import Loader from "../Loader/Loader";
+import toast from 'react-hot-toast';
 function SpendList() {
   const { user, reloadPage } = useContext(AuthContext);
   const [list, setList] = useState([]);

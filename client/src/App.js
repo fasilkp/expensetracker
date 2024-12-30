@@ -15,15 +15,15 @@ import GoogleAuthCallback from './components/GoogleAuthCallback/GoogleAuthCallba
 import ProtectedComponent from './components/ProtectedComponent/ProtectedComponent';
 import toast, { Toaster } from 'react-hot-toast';
 import AuthComponent from './components/AuthComponents/AuthComponent';
+
+
+axios.defaults.baseURL = process.env.REACT_APP_SERVER_URL
 axios.defaults.withCredentials = true;
-
-window.toast = toast;
-
-axios.defaults.baseURL = "http://localhost:8080/api"
-// axios.defaults.baseURL = "https://expensetrackerbackend.onrender.com/api"
+// axios.defaults.baseURL = "https://expensetrackerapi.fsweb.store/api"
 
 function App() {
-  console.log("app running 1.1")
+  console.log("app running 1.2" , process.env);
+  console.log("builde time", process.env.REACT_APP_BUILD_DATE);
   const { loggedIn, updateLogin } = useContext(AuthContext);
   useEffect(() => {
     updateLogin();
@@ -31,8 +31,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* {
-          loggedIn && */}
         <Routes>
           <Route path="/" element={<ProtectedComponent Component={HomePage} loggedIn={loggedIn} />} />
           <Route path="/list" element={<ProtectedComponent Component={ListPage} loggedIn={loggedIn} />} />
@@ -41,22 +39,9 @@ function App() {
 
           <Route path="/user/auth/google/callback" element={<AuthComponent Component={GoogleAuthCallback} loggedIn={loggedIn} />} />
           <Route path="/login" element={<AuthComponent Component={LoginPage} loggedIn={loggedIn} />} />
-          {/* <Route path="/register" element={<AuthComponent Component={RegisterPage} loggedIn={loggedIn} />}/> */}
-          {/* <Route path="/demo-login" element={<AuthComponent Component={DemoLoginPage} loggedIn={loggedIn} />} /> */}
-
         </Routes>
-        {/* // }
-        // {loggedIn === false && */}
-        {/* <Routes>
-            <Route path="/demo-login" element={<DemoLoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="*" element={<LoginPage />}/>
-          </Routes> */}
-        {/* {/* // } */}
         {
           loggedIn === null && <>
-            <b>⏳⏳⏳</b>
             <Loader /></>
         }
         <Toaster position="top-right" />

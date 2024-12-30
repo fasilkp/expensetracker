@@ -6,22 +6,17 @@ import axios from 'axios'
 import AuthContext from '../../context/AuthContext'
 import Loader from '../Loader/Loader'
 import { FcGoogle } from 'react-icons/fc'
+import toast from 'react-hot-toast';
 function Login() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+
     const { updateLogin } = useContext(AuthContext)
     const [load, setLoad] = useState(false)
     const navigate = useNavigate();
-    const handleEmail = e => {
-        setEmail(e.target.value)
-    }
-    const handlePassword = e => {
-        setPassword(e.target.value)
-    }
+
     const handleGoogleLogin = async (e) => {
         e.preventDefault()
-        // let redirectUri = process.env.REACT_APP_SERVER_URL+"/user/auth/google"
-        let redirectUri = "http://localhost:3000/user/auth/google/callback"
+        let redirectUri = window.location.origin+"/user/auth/google/callback"
+        // let redirectUri = "http://localhost:3000/user/auth/google/callback"
         let clientId = "572510792166-vpf7ki1vmt5t7u4er1afdsgn7oe1l1l9.apps.googleusercontent.com"
         try {
             window.open(
@@ -30,34 +25,20 @@ function Login() {
             )
         } catch (error) {
             console.log('Google login error:', error);
-            toast.error(err?.response?.data?.message ?? "Internal Server Error")
+            toast.error(error?.response?.data?.message ?? "Internal Server Error")
         }
     };
-    const handleSubmit = async e => {
-        e.preventDefault();
-        setLoad(true)
-        if (email !== "" || password.length > 6) {
-            try {
-                const user = await axios.post("/auth/login", { email, password });
-                updateLogin();
-
-                if (user.data.login) {
-                    updateLogin();
-                    window.location.href = "/"
-                }
-                else {
-                    alert(user.data.message);
-                }
-
-            } catch (err) {
-                toast.error(err?.response?.data?.message ?? "Internal Server Error")
-
-            } finally {
-                setLoad(false)
-            }
+    const handleDemoLogin = async (e) => {
+        e.preventDefault()
+        try{
+            const res = await axios.get("/user/auth/demo");
+            updateLogin()
+            navigate("/")
+        }catch(err){
+            console.log(err)
+            toast.error(err?.response?.data?.message ?? "Demo Login failed")
         }
-        setLoad(false)
-    }
+    };
     return (
         <>
         <nav className='login-nav'>
@@ -70,6 +51,9 @@ function Login() {
                     <button onClick={handleGoogleLogin}>
                         <FcGoogle />
                         <div>Login with google</div>
+                    </button>
+                    <button onClick={handleDemoLogin}>
+                        Demo Login
                     </button>
                 </div>
                 {
